@@ -250,3 +250,83 @@ new MutationObserver(()=>{
 MW.init.start();
 
 })();
+/* ============================================================
+   MÓDULO 08 - TOAST
+============================================================ */
+
+MW.ui.toast=function(text){
+
+    let toast=document.getElementById("mw-toast");
+
+    if(!toast){
+
+        toast=document.createElement("div");
+
+        toast.id="mw-toast";
+
+        toast.style.position="fixed";
+
+        toast.style.bottom="25px";
+
+        toast.style.right="25px";
+
+        toast.style.background="#1565C0";
+
+        toast.style.color="white";
+
+        toast.style.padding="12px 18px";
+
+        toast.style.borderRadius="12px";
+
+        toast.style.fontWeight="600";
+
+        toast.style.boxShadow="0 8px 20px rgba(0,0,0,.20)";
+
+        toast.style.zIndex="99999999";
+
+        toast.style.opacity="0";
+
+        toast.style.transition=".25s";
+
+        document.body.appendChild(toast);
+
+    }
+
+    toast.textContent=text;
+
+    toast.style.opacity="1";
+
+    clearTimeout(toast.timer);
+
+    toast.timer=setTimeout(()=>{
+
+        toast.style.opacity="0";
+
+    },1800);
+
+};
+/* ============================================================
+   MÓDULO 09 - CLIPBOARD PRO
+============================================================ */
+
+MW.clipboard.copy=async function(text){
+
+    try{
+
+        await navigator.clipboard.writeText(text);
+
+        MW.ui.toast("✅ Prompt copiado");
+
+        return true;
+
+    }
+
+    catch(e){
+
+        MW.ui.toast("❌ Erro ao copiar");
+
+        return false;
+
+    }
+
+};
